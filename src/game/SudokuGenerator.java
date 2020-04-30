@@ -66,7 +66,7 @@ public class SudokuGenerator {
         }
     }
     //6th randomNumber
-    int randomNumber(int num){
+    public int randomNumber(int num){
         return (int)Math.floor((Math.random()*num)+1);
     }
 
@@ -127,8 +127,5 @@ public class SudokuGenerator {
         }
         System.out.println();
     }
-    //main function to test
-
-
 }
 
