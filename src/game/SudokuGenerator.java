@@ -1,14 +1,16 @@
 package game;
 
-public class SudokuGenerator {
-   public int [][] board;
-   public int size;
-   public int n;
+public class SudokuGenerator{
+    public int size;
+    public int board[][];
+    public int n;
 
-    public SudokuGenerator(int size) {
-        this.size = size;
+    public SudokuGenerator(Board solvedPuzzle) {
+        this.size = solvedPuzzle.size;
+        this.board = solvedPuzzle.getBoard();
         n = (int)Math.sqrt(size);
-        board = new int[size][size];
+        fillValues();
+        solvedPuzzle.setBoard(this.board);
 
     }
 
