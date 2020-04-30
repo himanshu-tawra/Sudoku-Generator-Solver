@@ -6,16 +6,22 @@ public class SudokuPuzzle {
     public int size;
     public int emptyCells;
     public int myArray[][];
-
+    public int solvedPuzzle[][];
     public SudokuPuzzle(int size,int emptyCells) {
         SudokuGenerator sudoku = new SudokuGenerator(size);
         this.size = size;
         this.emptyCells = emptyCells;
         sudoku.fillValues();
+        this.solvedPuzzle = new int [size][size];
         this.myArray = new int [size][size];
         for(int i = 0; i < sudoku.size; i++){
             for(int j = 0; j < sudoku.size; j++){
                 myArray[i][j] = sudoku.board[i][j];
+            }
+        }
+        for(int i = 0; i < sudoku.size; i++){
+            for(int j = 0; j < sudoku.size; j++){
+                solvedPuzzle[i][j] = sudoku.board[i][j];
             }
         }
     }
@@ -28,7 +34,7 @@ public class SudokuPuzzle {
 
         while(count != 0){
 
-            int cellId = randomNumber(size*size);
+            int cellId = randomNumber(size*size-1);
 
             int i = cellId/size;
             int j = cellId%size;
@@ -45,6 +51,7 @@ public class SudokuPuzzle {
     public static void main(String[] args) {
         SudokuPuzzle s = new SudokuPuzzle(9,25);
         s.removeCells();
+        System.out.println("Sudoku puzzle");
         for(int i = 0; i < s.size; i++){
             for(int j = 0; j < s.size; j++){
                 System.out.print(s.myArray[i][j] + " ");
@@ -52,5 +59,14 @@ public class SudokuPuzzle {
             }
             System.out.println();
         }
+        System.out.println("Solved puzzle");
+        for(int i = 0; i < s.size; i++){
+            for(int j = 0; j < s.size; j++){
+                System.out.print(s.solvedPuzzle[i][j] + " ");
+
+            }
+            System.out.println();
+        }
+
     }
 }
