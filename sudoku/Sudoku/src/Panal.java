@@ -17,6 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.Timer;
+import java.awt.Desktop;
+import java.net.URI;
 
 @SuppressWarnings("serial")
 public class Panal extends javax.swing.JPanel {
@@ -29,9 +31,9 @@ public class Panal extends javax.swing.JPanel {
     private JLabel label = new JLabel("      Timer :00 : 00 : 00");
     private JLabel passsLabel = new JLabel("            your password :");
     private JPanel[][] paneles;
-    private JPanel center, bPanel,sPanel;
+    private JPanel center, bPanel;
     @SuppressWarnings("unused")
-	private JButton nBtn, cBtn, eBtn, hardBtn, midBtn, easyBtn, slove, about,sBtn;
+	private JButton nBtn, cBtn, eBtn, hardBtn, midBtn, easyBtn, slove, about,sBtn,pauseBtn,tutBtn,resumeBtn;
     private int[][] temp = new int[9][9];
     private int[][] grid = new int[9][9];
     private int counter = 0;
@@ -96,9 +98,10 @@ public class Panal extends javax.swing.JPanel {
         boxes = new JTextField[9][9];
         paneles = new JPanel[3][3];
         passsLabel.setFont(new Font(Font.DIALOG, Font.PLAIN, 16));
+        passsLabel.setBorder(BorderFactory.createLineBorder(Color.black));
         passsLabel.setForeground(Color.black);
         label.setForeground(Color.black);
-      //label.setBorder(BorderFactory.createLineBorder(Color.red, 4));
+        label.setBorder(BorderFactory.createLineBorder(Color.black));
         label.setFont(new Font(Font.DIALOG, Font.PLAIN, 16));
         
         for (int i = 0; i < 3; i++) {
@@ -129,14 +132,15 @@ public class Panal extends javax.swing.JPanel {
 
         bPanel = new JPanel();
         bPanel.setBackground(Color.decode("#AABFFF"));
-        bPanel.setBorder(BorderFactory.createLineBorder(Color.black, 6, true));
-        bPanel.setLayout(new GridLayout(4, 3, 0, 20));
+        bPanel.setBorder(BorderFactory.createLineBorder(Color.black, 1, true));
+        bPanel.setLayout(new GridLayout(5, 3, 0, 5));
 
         /*------------------------panel for new game button -------------------------------------*/
         ActionListener action = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
                 label.setText(TimeFormat(counter));
+               
                 counter++;
 
             }
@@ -144,7 +148,7 @@ public class Panal extends javax.swing.JPanel {
 
         /*------------------------panel for new game button -------------------------------------*/
         nBtn = new JButton("New Game");
-        nbtn.setSize(20, 50);
+        nbtn.setSize(50, 50);
         timer = new Timer(1000, action);
         nBtn.addActionListener(new ActionListener() {
 
@@ -232,7 +236,7 @@ public class Panal extends javax.swing.JPanel {
             }
         });
         /*------------------------panel for Solve button -------------------------------------*/
-        slove = new JButton("<-- slove Require Password ");
+        slove = new JButton("Solve Sudoku ");
 
         slove.addActionListener(new ActionListener() {
             @SuppressWarnings("deprecation")
@@ -280,6 +284,8 @@ public class Panal extends javax.swing.JPanel {
          sBtn.addActionListener(new ActionListener() {
              @Override
              public void actionPerformed(ActionEvent e) {
+            	 
+            	 
                  for (int i = 0; i < 9; i++) {
                      for (int j = 0; j < 9; j++) {
                          if (!boxes[i][j].isEditable()) {
@@ -306,8 +312,57 @@ public class Panal extends javax.swing.JPanel {
                          }
                      }
                  }
+            	 
              }
          });
+         
+         /*-------------------------Pause Button--------------------------------*/
+         
+         pauseBtn = new JButton("Pause");
+
+         pauseBtn.addActionListener(new ActionListener() {
+             @Override
+             public void actionPerformed(ActionEvent e) {
+            	 timer.stop();
+            	 
+                             	 
+             }
+         });
+         
+         /*--------------------------Resume------------------------------*/
+         
+         resumeBtn = new JButton("Resume");
+
+         resumeBtn.addActionListener(new ActionListener() {
+             @Override
+             public void actionPerformed(ActionEvent e) {
+            	 timer.start();
+            	 
+                             	 
+             }
+         });
+         
+         
+         /*-----------------------------------Tutorial Button--------------------------*/
+         
+         tutBtn = new JButton("Tutorial");
+
+         tutBtn.addActionListener(new ActionListener() {
+             @Override
+             public void actionPerformed(ActionEvent e) {
+            	  	 
+            	 try {
+            		  Desktop desktop = Desktop.getDesktop();
+            		  URI oURL = new URI("https://www.youtube.com/watch?v=kvU9_MVAiE0");
+            		  desktop.browse(oURL);
+            		} catch (Exception E) {
+            		  E.printStackTrace();
+            		}
+            	 
+             }
+         });
+         
+         
          
          
          
@@ -318,14 +373,16 @@ public class Panal extends javax.swing.JPanel {
         bPanel.add(easyBtn);
         bPanel.add(nBtn);   //add new game button to 
         bPanel.add(cBtn);
-        bPanel.add(eBtn);
+        bPanel.add(label);
         bPanel.add(passsLabel);
         bPanel.add(pass);
         bPanel.add(slove);
-        bPanel.add(label);
-        bPanel.add(about);
+        bPanel.add(pauseBtn);
+        bPanel.add(resumeBtn);
+        bPanel.add(tutBtn);
         bPanel.add(sBtn);
-
+        bPanel.add(about);
+        bPanel.add(eBtn);
         add(bPanel, "South");   //add button panel to frame 
 
     }
